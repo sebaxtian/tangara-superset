@@ -12,9 +12,30 @@ This is the data intelligence web application, Superset, created to share Tangar
 
 Please read and execute each step below:
 
+### Step 0
+
+OS Dependencies:
+
+```bash
+$promt> sudo apt-get install build-essential libssl-dev libffi-dev python-dev-is-python3 libpq-dev python-pip libsasl2-dev libldap2-dev default-libmysqlclient-dev
+```
+
 ### Step 1
 
+Add Poetry to your PATH:
+
+```bash
+$promt> export PATH="$HOME/.local/bin:$PATH"
+```
+
+Also you can add Poetry to your .bashrc file:
+
+```bash
+$promt> nano ~/.bashrc
+```
+
 Install poetry by script:
+
 ```bash
 $promt> bash install-poetry.sh
 ```
@@ -36,12 +57,6 @@ $promt> poetry shell
 ```
 
 ### Step 4
-
-OS Dependencies:
-
-```bash
-$(tangara-superset-py3.10)> sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip libsasl2-dev libldap2-dev default-libmysqlclient-dev
-```
 
 Installing dependencies:
 
@@ -72,6 +87,9 @@ $(tangara-superset-py3.10)> export SUPERSET_CONFIG_PATH=$PWD/superset_config.py
 Installing and Initializing Superset:
 
 ```bash
+# Superset FLASK_APP Name
+$(tangara-superset-py3.10)> export FLASK_APP=superset
+
 # you need to initialize the database
 $(tangara-superset-py3.10)> superset db upgrade
 # Superset SQLite database is created in: ~/.superset/superset.db
@@ -81,7 +99,6 @@ Finish installing by running through the following commands:
 
 ```bash
 # Create an admin user in your metadata database (use `admin` as username to be able to load the examples)
-$(tangara-superset-py3.10)> export FLASK_APP=superset
 $(tangara-superset-py3.10)> superset fab create-admin
 
 # Load some data to play with
@@ -96,8 +113,11 @@ $(tangara-superset-py3.10)> superset init
 #$promt> npm run build
 #$promt> cd ..
 
+# Open Firewall Port
+$promt> sudo ufw allow 8088/tcp
+
 # To start a development web server on port 8088, use -p to bind to another port
-$(tangara-superset-py3.10)> superset run -p 8088 --with-threads --reload --debugger
+$(tangara-superset-py3.10)> superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
 ```
 
 ### Step 7
